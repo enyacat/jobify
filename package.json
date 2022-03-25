@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "This is a code-along project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/enyacat/jobify/issues"
   },
-  "homepage": "https://github.com/enyacat/jobify#readme"
+  "homepage": "https://github.com/enyacat/jobify#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
