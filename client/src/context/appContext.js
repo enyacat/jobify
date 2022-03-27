@@ -52,9 +52,9 @@ const AppProvider = ({ children }) => {
     localStorage.setItem('token', token)
     localStorage.setItem('location', location)
   }
-  const removeUserToLocalStorage = () => {
-    localStorage.removeItem('user')
+  const removeUserFromLocalStorage = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     localStorage.removeItem('location')
   }
 
@@ -124,7 +124,7 @@ const AppProvider = ({ children }) => {
 
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER })
-    removeUserToLocalStorage()
+    removeUserFromLocalStorage()
   }
   return (
     <AppContext.Provider
