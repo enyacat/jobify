@@ -33,6 +33,15 @@ const initialState = {
   userLocation: userLocation || '',
   jobLocation: userLocation || '',
   showSidebar: false,
+  idEditing: false,
+  editJobId: '',
+  position: '',
+  company: '',
+  jobLocation: userLocation || '',
+  jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
+  jobType: 'full-time',
+  statusOptions: ['interview', 'declined', 'pending'],
+  status: 'pending',
 }
 
 const AppContext = React.createContext()
