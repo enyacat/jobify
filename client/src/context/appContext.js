@@ -18,6 +18,13 @@ import {
   UPDATE_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  CREATE_JOBS_BEGIN,
+  CREATE_JOBS_SUCCESS,
+  CREATE_JOBS_ERROR,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
 } from './actions'
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
@@ -42,6 +49,10 @@ const initialState = {
   jobType: 'full-time',
   statusOptions: ['interview', 'declined', 'pending'],
   status: 'pending',
+  jobs: [],
+  totalJobs: 0,
+  numOfPages: 1,
+  page: 1,
 }
 
 const AppContext = React.createContext()
@@ -184,6 +195,65 @@ const AppProvider = ({ children }) => {
     }
     clearAlert()
   }
+
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } })
+  }
+
+  const clearValues = () => {
+    dispatch({ type: CLEAR_VALUES })
+  }
+
+  const createJob = async () => {
+    dispatch({ type: CREATE_JOBS_BEGIN })
+    try {
+      const { position, company, jobLocation, jobType, status } = state
+      await authFetch.post('/jobs', {
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
+      })
+      // console.log(response)
+
+      dispatch({
+        type: CREATE_JOBS_SUCCESS,
+      })
+      dispatch({ type: CLEAR_VALUES })
+    } catch (error) {
+      if (error.response.status === 401) return
+      dispatch({
+        type: CREATE_JOBS_ERROR,
+        payload: { msg: error.response.data.msg },
+      })
+    }
+    clearAlert()
+  }
+
+  const getJobs = async () => {
+    let url = `/jobs`
+    try {
+      const { data } = await authFetch(url)
+      const { jobs, totalJobs, numOfPages } = data
+      dispatch({
+        type: GET_JOBS_SUCCESS,
+        payload: { jobs, totalJobs, numOfPages },
+      })
+    } catch (error) {
+      console.log(error.response)
+      // logoutUser()
+    }
+    clearAlert()
+  }
+
+  const setEditJob = (id) => {
+    console.log(`set edit job: ${id}`)
+  }
+  const deleteJob = (id) => {
+    console.log(`delete job: ${id}`)
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -195,6 +265,12 @@ const AppProvider = ({ children }) => {
         toggleSidebar,
         logoutUser,
         updateUser,
+        handleChange,
+        clearValues,
+        createJob,
+        getJobs,
+        setEditJob,
+        deleteJob,
       }}
     >
       {children}

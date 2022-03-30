@@ -15,6 +15,13 @@ import {
   UPDATE_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  CREATE_JOBS_BEGIN,
+  CREATE_JOBS_SUCCESS,
+  CREATE_JOBS_ERROR,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
 } from './actions'
 import { initialState } from './appContext'
 const reducer = (state, action) => {
@@ -132,6 +139,58 @@ const reducer = (state, action) => {
         showAlert: true,
         alertType: 'danger',
         alertText: action.payload.msg,
+      }
+    case HANDLE_CHANGE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+        // isLoading: false,
+        // showAlert: true,
+        // alertType: 'danger',
+        // alertText: action.payload.msg,
+      }
+    case CLEAR_VALUES:
+      const initialState = {
+        idEditing: false,
+        editJobId: '',
+        position: '',
+        company: '',
+        jobLocation: state.userLocation,
+        jobType: 'full-time',
+        status: 'pending',
+      }
+      return {
+        ...state,
+        ...initialState,
+      }
+    case CREATE_JOBS_BEGIN:
+      return { ...state, isLoading: true }
+
+    case CREATE_JOBS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: 'success',
+        alertText: 'New Job created!',
+      }
+    case CREATE_JOBS_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: 'danger',
+        alertText: action.payload.msg,
+      }
+    case GET_JOBS_BEGIN:
+      return { ...state, isLoading: true, showAlert: false }
+    case GET_JOBS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        jobs: action.payload.jobs,
+        totalJobs: action.payload.totalJobs,
+        numOfPages: action.payload.numOfPages,
       }
   }
 
