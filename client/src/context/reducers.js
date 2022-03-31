@@ -17,13 +17,20 @@ import {
   LOGOUT_USER,
   HANDLE_CHANGE,
   CLEAR_VALUES,
-  CREATE_JOBS_BEGIN,
-  CREATE_JOBS_SUCCESS,
-  CREATE_JOBS_ERROR,
+  CREATE_JOB_BEGIN,
+  CREATE_JOB_SUCCESS,
+  CREATE_JOB_ERROR,
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
+  SET_EDIT_JOB,
+  DELETE_JOB_BEGIN,
+  EDIT_JOB_BEGIN,
+  EDIT_JOB_SUCCESS,
+  EDIT_JOB_ERROR,
 } from './actions'
+
 import { initialState } from './appContext'
+
 const reducer = (state, action) => {
   switch (action.type) {
     case DISPLAY_ALERT:
@@ -37,6 +44,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         showAlert: false,
+        alertType: '',
+        alertText: '',
       }
     case REGISTER_USER_BEGIN:
       return { ...state, isLoading: true }
@@ -151,7 +160,7 @@ const reducer = (state, action) => {
       }
     case CLEAR_VALUES:
       const initialState = {
-        idEditing: false,
+        isEditing: false,
         editJobId: '',
         position: '',
         company: '',
@@ -163,10 +172,10 @@ const reducer = (state, action) => {
         ...state,
         ...initialState,
       }
-    case CREATE_JOBS_BEGIN:
+    case CREATE_JOB_BEGIN:
       return { ...state, isLoading: true }
 
-    case CREATE_JOBS_SUCCESS:
+    case CREATE_JOB_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -174,7 +183,7 @@ const reducer = (state, action) => {
         alertType: 'success',
         alertText: 'New Job created!',
       }
-    case CREATE_JOBS_ERROR:
+    case CREATE_JOB_ERROR:
       return {
         ...state,
         isLoading: false,
@@ -191,6 +200,43 @@ const reducer = (state, action) => {
         jobs: action.payload.jobs,
         totalJobs: action.payload.totalJobs,
         numOfPages: action.payload.numOfPages,
+      }
+    case SET_EDIT_JOB:
+      const job = state.jobs.find((job) => job._id === action.payload.id)
+      const { _id, position, company, jobLocation, jobType, status } = job
+      return {
+        ...state,
+        isEditing: true,
+        editJobId: _id,
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
+      }
+    case DELETE_JOB_BEGIN:
+      return { ...state, isLoading: true }
+
+    case EDIT_JOB_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+      }
+    case EDIT_JOB_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: 'success',
+        alertText: 'Job Updated!',
+      }
+    case EDIT_JOB_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: 'success',
+        alertText: action.payload.msg,
       }
   }
 
