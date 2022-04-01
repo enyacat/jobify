@@ -256,6 +256,7 @@ const AppProvider = ({ children }) => {
     if (search) {
       url = url + `&search=${search}`
     }
+    dispatch({ type: GET_JOBS_BEGIN })
     try {
       const { data } = await authFetch(url)
       const { jobs, totalJobs, numOfPages } = data
