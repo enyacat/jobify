@@ -1,12 +1,12 @@
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
-  REGISTER_USER_BEGIN,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR,
-  LOGIN_USER_BEGIN,
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_ERROR,
+  // REGISTER_USER_BEGIN,
+  // REGISTER_USER_SUCCESS,
+  // REGISTER_USER_ERROR,
+  // LOGIN_USER_BEGIN,
+  // LOGIN_USER_SUCCESS,
+  // LOGIN_USER_ERROR,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
@@ -30,6 +30,7 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
+  CHANGE_PAGE,
 } from './actions'
 
 import { initialState } from './appContext'
@@ -50,57 +51,57 @@ const reducer = (state, action) => {
         alertType: '',
         alertText: '',
       }
-    case REGISTER_USER_BEGIN:
-      return { ...state, isLoading: true }
-    case REGISTER_USER_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        token: action.payload.token,
-        user: action.payload.user,
-        userLocation: action.payload.location,
-        jobLocation: action.payload.location,
-        showAlert: true,
-        alertType: 'success',
-        alertText: 'User created, redirecting...',
-      }
-    case REGISTER_USER_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-        showAlert: true,
-        alertType: 'danger',
-        alertText: action.payload.msg,
-      }
+    // case REGISTER_USER_BEGIN:
+    //   return { ...state, isLoading: true }
+    // case REGISTER_USER_SUCCESS:
+    //   return {
+    //     ...state,
+    //     isLoading: false,
+    //     token: action.payload.token,
+    //     user: action.payload.user,
+    //     userLocation: action.payload.location,
+    //     jobLocation: action.payload.location,
+    //     showAlert: true,
+    //     alertType: 'success',
+    //     alertText: 'User created, redirecting...',
+    //   }
+    // case REGISTER_USER_ERROR:
+    //   return {
+    //     ...state,
+    //     isLoading: false,
+    //     showAlert: true,
+    //     alertType: 'danger',
+    //     alertText: action.payload.msg,
+    //   }
 
-    case LOGIN_USER_BEGIN:
-      return { ...state, isLoading: true }
-    case LOGIN_USER_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        token: action.payload.token,
-        user: action.payload.user,
-        userLocation: action.payload.location,
-        jobLocation: action.payload.location,
-        showAlert: true,
-        alertType: 'success',
-        alertText: 'Login successful! Redirecting...',
-      }
-    case LOGIN_USER_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-        showAlert: true,
-        alertType: 'danger',
-        alertText: action.payload.msg,
-      }
+    // case LOGIN_USER_BEGIN:
+    //   return { ...state, isLoading: true }
+    // case LOGIN_USER_SUCCESS:
+    //   return {
+    //     ...state,
+    //     isLoading: false,
+    //     token: action.payload.token,
+    //     user: action.payload.user,
+    //     userLocation: action.payload.location,
+    //     jobLocation: action.payload.location,
+    //     showAlert: true,
+    //     alertType: 'success',
+    //     alertText: 'Login successful! Redirecting...',
+    //   }
+    // case LOGIN_USER_ERROR:
+    //   return {
+    //     ...state,
+    //     isLoading: false,
+    //     showAlert: true,
+    //     alertType: 'danger',
+    //     alertText: action.payload.msg,
+    //   }
     case SETUP_USER_BEGIN:
       return { ...state, isLoading: true }
     case SETUP_USER_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
         token: action.payload.token,
         user: action.payload.user,
         userLocation: action.payload.location,
@@ -155,6 +156,7 @@ const reducer = (state, action) => {
     case HANDLE_CHANGE:
       return {
         ...state,
+        page: 1,
         [action.payload.name]: action.payload.value,
         // isLoading: false,
         // showAlert: true,
@@ -238,7 +240,7 @@ const reducer = (state, action) => {
         ...state,
         isLoading: false,
         showAlert: true,
-        alertType: 'success',
+        alertType: 'danger',
         alertText: action.payload.msg,
       }
     case SHOW_STATS_BEGIN:
@@ -263,8 +265,10 @@ const reducer = (state, action) => {
         searchType: 'all',
         sort: 'latest',
       }
+    case CHANGE_PAGE:
+      return { ...state, page: action.payload.page }
   }
-
+  console.log('hiiiiii')
   throw new Error(`no such actinon: ${action.type}`)
 }
 
