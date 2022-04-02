@@ -18,7 +18,6 @@ const SearchContainer = () => {
   const handleSearch = (e) => {
     if (isLoading) return
     handleChange({ name: e.target.name, value: e.target.value })
-    console.log(e.target.name)
   }
 
   const handleSubmit = (e) => {

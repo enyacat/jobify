@@ -164,7 +164,7 @@ const reducer = (state, action) => {
         // alertText: action.payload.msg,
       }
     case CLEAR_VALUES:
-      const initialState = {
+      const initialStateClear = {
         isEditing: false,
         editJobId: '',
         position: '',
@@ -175,7 +175,7 @@ const reducer = (state, action) => {
       }
       return {
         ...state,
-        ...initialState,
+        ...initialStateClear,
       }
     case CREATE_JOB_BEGIN:
       return { ...state, isLoading: true }
@@ -268,7 +268,6 @@ const reducer = (state, action) => {
     case CHANGE_PAGE:
       return { ...state, page: action.payload.page }
   }
-  console.log('hiiiiii')
   throw new Error(`no such actinon: ${action.type}`)
 }
 
