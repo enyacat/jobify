@@ -1,18 +1,20 @@
 # Jobify (MERN)
 
-App deployed here: https://job-search-mern.herokuapp.com/
 Feel free to register yourself or use cat@gmail.com and 123456 to test.
+
 The app allows you to keep track of jobs you applied for, sorting and filtering and searching.
+
 This is a code-along project. I've learnt a lot about MongoDB, Express, React and NodeJS from this project.
+
 Below are the procedures taken to make this project by the original author.
 
 #### Track Your Job Search
 
-Project in Action - [Jobify](https://www.jobify.live/)
+App deployed here: https://job-search-mern.herokuapp.com/
 
 #### Support
 
-Find the App Useful? [You can always buy me a coffee](https://www.buymeacoffee.com/johnsmilga)
+Original author is here. [You can always buy me a coffee](https://www.buymeacoffee.com/johnsmilga)
 
 #### Run The App Locally
 
