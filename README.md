@@ -1,6 +1,10 @@
 # Jobify (MERN)
 
-This is a code-along project
+This is a code-along project. 
+App deployed here: https://job-search-mern.herokuapp.com/
+Feel free to register yourself or use cat@gmail.com and 123456 to test.
+I've learnt a lot about MongoDB, Express, React and NodeJS from this project.
+Below are the procedures taken to make this project by the original author.
 
 #### Track Your Job Search
 
